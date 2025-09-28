@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Orden</title>
+    <script>
+        function saveToLocalStorage(order) {
+            let orders = localStorage.getItem("orders");
+            orders = orders ? JSON.parse(orders) : [];
+            orders.push(order);
+            localStorage.setItem("orders", JSON.stringify(orders));
+        }
+
+        async function enviarOrden(event) {
+            event.preventDefault();
+
+            const order = {
+                product: document.getElementById("product").value,
+                quantity: document.getElementById("quantity").value,
+                price: document.getElementById("price").value,
+                customer: document.getElementById("customer").value
+            };
+
+            const response = await fetch("/api/orders/create", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(order)
+            });
+
+            if (response.ok) {
+                saveToLocalStorage(order);
+                alert("✅ Orden enviada y guardada en localStorage");
+                document.getElementById("orderForm").reset();
+            } else {
+                alert("❌ Error al enviar la orden");
+            }
+        }
+    </script>
+</head>
+<body>
+<h1>📦 Crear Orden</h1>
+<form id="orderForm" onsubmit="enviarOrden(event)">
+    <label>Producto:</label><br>
+    <input type="text" id="product" required><br><br>
+
+    <label>Cantidad:</label><br>
+    <input type="number" id="quantity" required><br><br>
+
+    <label>Precio:</label><br>
+    <input type="number" id="price" step="0.01" required><br><br>
+
+    <label>Cliente:</label><br>
+    <input type="text" id="customer" required><br><br>
+
+    <button type="submit">Enviar Orden</button>
+</form>
+
+<br>
+<button onclick="verLocalStorage()">📋 Ver órdenes guardadas</button>
+
+<script>
+    function verLocalStorage() {
+        const data = JSON.parse(localStorage.getItem("orders") || "[]");
+        console.log("📌 Órdenes en localStorage:", data);
+        alert("Revisa la consola del navegador (F12)");
+    }
+</script>
+
+</body>
+</html>
