@@ -11,5 +11,10 @@ public class ViewController {
     public String mostrarFormulario() {
         return "orderForm";
     }
+
+    @GetMapping("/ordenes/guardadas")
+    public String verOrdenesGuardadas() {
+        return "orders-list";
+    }
 }
 

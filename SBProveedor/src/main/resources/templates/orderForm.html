@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Crear Orden</title>
+
+    <!-- ✅ Bootstrap para estilos bonitos -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet">
+
     <script>
         function saveToLocalStorage(order) {
             let orders = localStorage.getItem("orders");
@@ -35,36 +41,55 @@
                 alert("❌ Error al enviar la orden");
             }
         }
+
+        function verLocalStorage() {
+            const data = JSON.parse(localStorage.getItem("orders") || "[]");
+            console.log("📌 Órdenes en localStorage:", data);
+            alert("Revisa la consola del navegador (F12)");
+        }
     </script>
 </head>
-<body>
-<h1>📦 Crear Orden</h1>
-<form id="orderForm" onsubmit="enviarOrden(event)">
-    <label>Producto:</label><br>
-    <input type="text" id="product" required><br><br>
+<body class="bg-light">
 
-    <label>Cantidad:</label><br>
-    <input type="number" id="quantity" required><br><br>
+<div class="container mt-5">
+    <div class="card shadow p-4" style="max-width: 600px; margin: auto;">
+        <h2 class="text-center mb-4">Crear Orden</h2>
 
-    <label>Precio:</label><br>
-    <input type="number" id="price" step="0.01" required><br><br>
+        <form id="orderForm" onsubmit="enviarOrden(event)">
+            <div class="mb-3">
+                <label class="form-label">Producto</label>
+                <input type="text" id="product" class="form-control" required>
+            </div>
 
-    <label>Cliente:</label><br>
-    <input type="text" id="customer" required><br><br>
+            <div class="mb-3">
+                <label class="form-label">Cantidad</label>
+                <input type="number" id="quantity" class="form-control" required>
+            </div>
 
-    <button type="submit">Enviar Orden</button>
-</form>
+            <div class="mb-3">
+                <label class="form-label">Precio</label>
+                <input type="number" id="price" step="0.01" class="form-control" required>
+            </div>
 
-<br>
-<button onclick="verLocalStorage()">📋 Ver órdenes guardadas</button>
+            <div class="mb-3">
+                <label class="form-label">Cliente</label>
+                <input type="text" id="customer" class="form-control" required>
+            </div>
 
-<script>
-    function verLocalStorage() {
-        const data = JSON.parse(localStorage.getItem("orders") || "[]");
-        console.log("📌 Órdenes en localStorage:", data);
-        alert("Revisa la consola del navegador (F12)");
-    }
-</script>
+            <button type="submit" class="btn btn-primary w-100">Enviar Orden</button>
+        </form>
+
+        <button
+            class="btn btn-secondary w-100 mt-3"
+            onclick="window.location.href='/ordenes/guardadas'">
+            Ver órdenes guardadas
+        </button>
+
+    </div>
+</div>
+
+<!-- ✅ Script de Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

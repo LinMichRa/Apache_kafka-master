@@ -6,7 +6,7 @@
 		<groupId>co.vinni</groupId>
 		<artifactId>Apache_kafka</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<groupId>co.vinni.kafka</groupId>
 	<artifactId>SBProveedor</artifactId>
